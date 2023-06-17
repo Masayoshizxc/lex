@@ -15,16 +15,19 @@ final class User: Model, Content {
     @Field(key: "name") var name: String
     @Field(key: "login") var login: String
     @Field(key: "password") var password: String
+    @Field(key: "profilePic") var profilePic: String?
     
     final class Public: Content {
         var id: UUID?
         var name: String
         var login: String
+        var profilePic: String?
         
-        init(id: UUID? = nil, name: String, login: String){
+        init(id: UUID? = nil, name: String, login: String, profilePic: String? = nil){
             self.id = id
             self.name = name
             self.login = login
+            self.profilePic = profilePic
         }
     }
     
@@ -35,7 +38,8 @@ extension User {
     func convertToPublic() -> User.Public{
         let pub = User.Public(id: self.id,
                               name: self.name,
-                              login: self.login)
+                              login: self.login,
+                              profilePic: self.profilePic)
         return pub
     }
 }

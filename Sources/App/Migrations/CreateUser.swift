@@ -10,6 +10,7 @@ import Fluent
 
 struct CreateUser: AsyncMigration {
     
+    
     func prepare(on database: FluentKit.Database) async throws {
         let schema = database.schema("users")
             .id()

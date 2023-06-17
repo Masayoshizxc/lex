@@ -19,7 +19,7 @@ public func configure(_ app: Application) async throws {
 
     
     app.migrations.add(CreateUser())
-    
+    app.migrations.add(CreateLawyer())
 //
     try app.autoMigrate().wait()
     // register routes
