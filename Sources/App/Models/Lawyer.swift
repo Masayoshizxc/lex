@@ -18,7 +18,7 @@ final class Lawyer: Model, Content {
     @Field(key: "password") var password: String
     @Field(key: "direction") var direction: String
     @Field(key: "experience") var experience: String
-    @Field(key: "profilePic") var profilePic: String?
+//    @Field(key: "profilePic") var profilePic: String?
     
     final class Public: Content {
         var id: UUID?
@@ -26,15 +26,17 @@ final class Lawyer: Model, Content {
         var login: String
         var direction: String
         var experience: String
-        var profilePic: String?
+//        var profilePic: String?
         
-        init(id: UUID? = nil, name: String, login: String, direction: String, experience: String, profilePic: String? = nil){
+        init(id: UUID? = nil, name: String, login: String, direction: String, experience: String
+//             profilePic: String? = nil
+        ){
             self.id = id
             self.name = name
             self.login = login
             self.direction = direction
             self.experience = experience
-            self.profilePic = profilePic
+//            self.profilePic = profilePic
         }
         
     }
@@ -48,8 +50,9 @@ extension Lawyer {
                                 name: self.name,
                                 login: self.login,
                                 direction: self.direction,
-                                experience: self.experience,
-                                profilePic: self.profilePic)
+                                experience: self.experience
+//                                profilePic: self.profilePic
+        )
         return pub
     }
 }

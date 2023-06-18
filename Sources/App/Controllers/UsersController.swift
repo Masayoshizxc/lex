@@ -14,6 +14,11 @@ struct UsersController: RouteCollection {
         usersGroup.post(use: createHandler)
         usersGroup.get(use: getAllHandlers)
         usersGroup.get(":id", use: getHandler)
+        usersGroup.post("auth", use: authHandler)
+//
+//        let basicMW = User.authenticator()
+//        let guardMW = User.guardMiddleware()
+//        let protected = usersGroup.
     }
     
     func createHandler(_ req: Request) async throws -> User.Public {
@@ -39,6 +44,19 @@ struct UsersController: RouteCollection {
         return user.convertToPublic()
     }
     
+    func authHandler(_ req: Request) async throws -> User.Public {
+        let userDTO = try req.content.decode(AuthUserDTO.self)
+        guard let user = try await User
+            .query(on: req.db)
+            .filter("login", .equal, userDTO.login)
+            .first() else { throw Abort(.notFound)}
+        let isPassEqual = try Bcrypt.verify(userDTO.password, created: user.password)
+//        guard isPassEqual else { throw Abort(.unauthorized)}
+        guard isPassEqual else { throw Abort(.notFound)
+        }
+        return user.convertToPublic()
+    }
+    
 //    func delHandler(_ req: Request) async throws -> User.Public {
 //        guard let user = try await User.delete(req.parameters.get("id"), on req.db)
 //        else{
@@ -46,4 +64,9 @@ struct UsersController: RouteCollection {
 //        }
 //        return user.0
 //    }
+}
+
+struct AuthUserDTO: Content {
+    let login: String
+    var password: String
 }

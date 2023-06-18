@@ -17,7 +17,7 @@ struct CreateLawyer: AsyncMigration {
             .field("password", .string, .required)
             .field("direction", .string, .required)
             .field("experience", .string, .required)
-            .field("profilePic", .string)
+//            .field("profilePic", .string)
         try await schema.create()
     }
     
